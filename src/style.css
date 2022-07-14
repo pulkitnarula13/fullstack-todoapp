@@ -1,0 +1,80 @@
+html {
+    font-family: sans-serif;
+}
+
+h1, h2 {
+    margin: 2rem;
+    color:rgb(9, 120, 42);
+}
+
+h2 {
+    margin-top: 4rem;
+    margin-bottom: 0;
+}
+
+form {
+    margin: 2rem;
+}
+
+form > label {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, 1fr);
+}
+
+form > label input {
+    width: 30%;
+    height: 1.3rem;
+}
+
+label {
+    font-weight:bolder;
+}
+
+fieldset {
+    width: 20%;
+    margin: 2rem 0;
+}
+
+fieldset label {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+form button {
+    width: 5rem;
+    height: 1.8rem;
+    background-color:darkblue;
+    color: white;
+    border-radius: 50px;
+}
+
+form button {
+    margin-left: 1rem;
+}
+
+ul li {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid darkmagenta;
+    padding: 0.2rem;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+li button {
+    width: 5rem;
+    height: 1.8rem;
+    background-color:darkblue;
+    color: white;
+    border-radius: 50px;
+}
+
+button + input {
+    width: 5rem;
+    height: 1.8rem;
+    background-color:darkcyan;
+    color: white;
+    border-radius: 50px;
+    margin-left: 1rem;
+}
