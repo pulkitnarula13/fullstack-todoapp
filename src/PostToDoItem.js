@@ -7,45 +7,57 @@ function PostToDoItem({ setTodo }) {
 
     const [ todoItem, setToDoItem ] = useState()
     const [ checkedItems, setCheckedItems] = useState([])
-    const [ checked, setChecked ] = useState([]);
     const [ description, setDescription ] = useState('');
-    const [ checkmark, setCheckMark ] = useState();
+    const [ checkmark, setCheckMark ] = useState(false);
 
 
     const typesArray = ["study", "chore", "work", "other"]
  
 
 
-    //Reference - https://contactmentor.com/checkbox-list-react-js-example/
-    const handleCheck = (event) => {
-        let updatedList = [...checked];
-        if (event.target.checked) {
-          updatedList = [...checked, event.target.value];
-        } else {
-          updatedList.splice(checked.indexOf(event.target.value), 1);
-        }
-        setChecked(updatedList);
-      };
+    // Checkmarks
+    const handleCheckmarks = (checkVal) => {
+        // check the value selected
+        console.log("New Item checked: ", checkVal.target.value)
 
-    let checkedItemss = checked.length
-    ? checked.reduce((total, item) => {
-        return total + ", " + item;
-      })
-    : "";
+        // add the item in the array
+        setCheckedItems([...checkedItems, checkVal.target.value])
+
+        //show the array of checked items
+        console.log("Checked Items")
+        console.log(checkedItems);
+    }
+
+    // handle completed checkmark
+
+    const handleCompleted = (e) => {
+        if (!checkmark) {
+            setCheckMark(true)
+        }
+        else {
+            setCheckMark(false)
+        }
+        console.log(checkmark);
+    }
 
     
     // storeData - add a new ToDo
-    const storeData = (event) => {
-        
-        event.preventDefault()
-        axios.post('/api/toDos', { todoItem, checkedItemss })
-            .then(res => {
-                setToDoItem('')
-                setCheckedItems('')
-                setTodo(res.data)
-            })
-            .catch(err => console.log(err))
-    }
+    const storeData = (e) => {
+        e.preventDefault()
+        const data = {
+          item: todoItem,
+          type: checkedItems,
+          description: description,
+          done: checkmark,
+        }
+        console.log(data);
+        axios
+          .post("/api/toDos", data)
+          .then((response) => {
+            console.log(response)
+          })
+          .catch((err) => console.log(err))
+      }
 
     return (
         <>
@@ -53,7 +65,7 @@ function PostToDoItem({ setTodo }) {
             <form onSubmit={storeData}>
                 <label>
                     New to do: 
-                    <input type="text" name="todoItem" />
+                    <input type="text" name="todoItem" onChange={(e) => setToDoItem(e.target.value)} />
                 </label>
                 <fieldset>
                     <legend>Choose types</legend>
@@ -61,7 +73,7 @@ function PostToDoItem({ setTodo }) {
                     {typesArray.map((item) => (
                         <label key={item}>
                             {item}
-					        <input type="checkbox" name="checkedItems" value={item} onChange={handleCheck} />
+					        <input type="checkbox" name="checkedItems" value={item} onChange={handleCheckmarks} />
                         </label>
                     ))}
                     
@@ -69,11 +81,11 @@ function PostToDoItem({ setTodo }) {
 
                 <label>
                     Description: 
-                    <input type="text" name="description" />
+                    <input type="text" name="description" onChange={(e) => setDescription(e.target.value)}/>
                 </label>
                 <label>
                    Completed?
-                    <input type="checkbox" name="checkmark" value={checkmark} onChange={handleCheckmark} />
+                    <input type="checkbox" name="checkmark" value={checkmark} onChange={handleCompleted} />
                 </label>
 
                 <button>Add</button>

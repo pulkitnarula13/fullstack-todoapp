@@ -14,7 +14,7 @@ const TodoSchema = new Schema({
 
     type: {
         type: [{type:String}],
-        enum: ["study", "chore", "work", "other"]
+        // enum: ["study", "chore", "work", "other"]
     },
 
     description: {

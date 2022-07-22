@@ -20,21 +20,17 @@ const { Todo } = require('./models/Todo')
 
 //API Routes
 
-app.post('/api/toDos', (req,res)=>{
-    console.log("Hit the post ", req.body)
-    let toDo = new Todo(req.body)
-    console.log("Hello" + toDo)
-
-    toDo.save(error=>{
-        if(error){
-            res.status(500).json(error);
-        } else  {
-            res.status(201).json({
-                message: "New ToDo created",
-                data: toDo
-            })
-        }
-    })          
+app.post("/api/toDo", (req, res) => {
+    let todo = new Todo(req.body)
+    console.log("to do at server")
+    console.log(todo)
+    todo.save((error) => {
+      if (error) {
+        res.json(error)
+      } else {
+        res.json({ data: todo, message: "Todo task created successfully!!!!" })
+      }
+    })
 })
 
 // get ToDos
