@@ -6,7 +6,7 @@ const db = require('./db/connection.js')
 // Connection with MongoDB
 db.once('open', ()=>{
     console.log('Successfully connected to database!')
-    const server = app.listen(8080,()=>console.log("listening"));
+    const server = app.listen(8080,()=>console.log("Listening to port 8080"));
 })
 
 app.use(express.static("public"));
